@@ -5,16 +5,16 @@ import com.chuseok22.apichangelog.annotation.ApiChangeLogs;
 import com.chuseok22.apichangelog.config.ChangeLogProperties;
 import io.swagger.v3.oas.models.Operation;
 import java.lang.reflect.Method;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.customizers.OperationCustomizer;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
-@Component
 @RequiredArgsConstructor
 public class ChangeLogOperationCustomizer implements OperationCustomizer {
 
@@ -69,10 +69,12 @@ public class ChangeLogOperationCustomizer implements OperationCustomizer {
       logStream = Stream.concat(logStream, Arrays.stream(multiLogs.value()));
     }
 
+    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(changeLogProperties.getDateFormat());
+
     // 최신 변경사항을 먼저 보여주도록 정렬
     return logStream.sorted((log1, log2) ->
-            log2.date().compareTo(log1.date()))
-        .limit(changeLogProperties.getEntriesToShow())
+            LocalDate.parse(log2.date(), dateTimeFormatter)
+                .compareTo(LocalDate.parse(log1.date(), dateTimeFormatter)))
         .collect(Collectors.toList());
   }
 

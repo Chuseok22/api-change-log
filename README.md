@@ -1,7 +1,7 @@
 # API 변경 이력 관리 (API Change Log)
 
-[![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.0-blue.svg)](https://nexus.chuseok22.com/repository/maven-releases/)  
-[![Snapshot](https://img.shields.io/badge/Snapshot-0.0.5--SNAPSHOT-orange.svg)](https://nexus.chuseok22.com/repository/maven-snapshots/)
+[![Maven Central](https://img.shields.io/badge/Maven%20Central-1.0.1-blue.svg)](https://nexus.chuseok22.com/repository/maven-releases/)  
+[![Snapshot](https://img.shields.io/badge/Snapshot-0.0.6--SNAPSHOT-orange.svg)](https://nexus.chuseok22.com/repository/maven-snapshots/)
 
 API 변경 이력을 Swagger 문서에 자동으로 표시해주는 간편한 라이브러리입니다.  
 API의 변경 사항을 추적하고 문서화하여 개발자와 클라이언트에게 투명한 API 변경 관리를 제공합니다.

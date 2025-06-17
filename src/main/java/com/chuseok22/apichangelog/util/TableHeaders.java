@@ -2,11 +2,13 @@ package com.chuseok22.apichangelog.util;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class TableHeaders {
 
   private String date = "날짜";

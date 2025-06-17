@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.chuseok22'
-version = project.findProperty('version')
+version = project.findProperty('version') ?: '0.0.0-SNAPSHOT'
 
 java {
     toolchain {
