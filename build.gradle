@@ -1,16 +1,25 @@
 plugins {
-    id 'java'
+    id 'java-library' // 라이브러리 배포용 플러그인
     id 'org.springframework.boot' version '3.5.0'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'maven-publish'
 }
 
 group = 'com.chuseok22'
-version = '0.0.1-SNAPSHOT'
+version = project.findProperty('version')
 
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
 }
 
 configurations {
@@ -26,13 +35,44 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.3'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            pom {
+                name = 'Chuseok22 Api Log'
+                description = 'Github Api 변경 이력 관리'
+                url = 'https://github.com/Chuseok22/api-change-log'
+            }
+        }
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            name = 'chuseok22Nexus'
+            url = uri(
+                    version.endsWith('SNAPSHOT')
+                            ? "https://nexus.chuseok22.com/repository/maven-snapshots/"
+                            : "https://nexus.chuseok22.com/repository/maven-releases/"
+            )
+            allowInsecureProtocol = true
+            credentials {
+                username = project.findProperty('nexusUsername')
+                password = project.findProperty('nexusPassword')
+            }
+        }
+    }
 }
