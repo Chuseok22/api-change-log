@@ -36,5 +36,8 @@ out/
 ### VS Code ###
 .vscode/
 
-## application.yml ###
+### application.yml ###
 /src/main/resources/application.yml
+
+### Gradle 설정파일 ###
+gradle.properties
